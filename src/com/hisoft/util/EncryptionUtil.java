@@ -11,7 +11,6 @@ import java.util.Arrays;
  */
 public class EncryptionUtil {
 
-
     private static StringBuilder bytes2HexString(byte[] digest) {
         StringBuilder sb = new StringBuilder();
         for (byte b : digest) {

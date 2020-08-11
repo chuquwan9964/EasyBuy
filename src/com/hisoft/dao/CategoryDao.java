@@ -11,9 +11,18 @@ public interface CategoryDao extends BaseDao<Category,Integer>{
      * @param id
      * @return
      */
-    List<Category> queryCategoriesByParentId(Integer id);
+    default List<Category> queryCategoriesByParentId(Integer id) {
+        return null;
+    }
 
 
+    /**
+     * 查询所有等级为1的category
+     * @return
+     */
+    default List<Category> queryLevel_1_Categories() {
+        return null;
+    }
 
 
 }

@@ -1,5 +1,10 @@
 package com.hisoft.entity;
 
+import java.util.List;
+
+/**
+ * Category实体类
+ */
 public class Category {
 
     //分类id
@@ -10,7 +15,20 @@ public class Category {
     private Integer c_parentId;
     //分类的类型,1:一级分类,2:二级分类,3:三级分类
     private Integer c_type;
+    //下一级category的集合,最后一级为空
+    private List<Category> c_children;
+    //这个分类下的产品集合
+    private List<Product> c_products;
 
+
+
+
+    public Category(Integer c_id, String c_name, Integer c_parentId, Integer c_type) {
+        this.c_id = c_id;
+        this.c_name = c_name;
+        this.c_parentId = c_parentId;
+        this.c_type = c_type;
+    }
 
     @Override
     public String toString() {
@@ -19,14 +37,34 @@ public class Category {
                 ", c_name='" + c_name + '\'' +
                 ", c_parentId=" + c_parentId +
                 ", c_type=" + c_type +
+                ", c_children=" + c_children +
+                ", c_products=" + c_products +
                 '}';
     }
 
-    public Category(Integer c_id, String c_name, Integer c_parentId, Integer c_type) {
+    public List<Category> getC_children() {
+        return c_children;
+    }
+
+    public void setC_children(List<Category> c_children) {
+        this.c_children = c_children;
+    }
+
+    public List<Product> getC_products() {
+        return c_products;
+    }
+
+    public void setC_products(List<Product> c_products) {
+        this.c_products = c_products;
+    }
+
+    public Category(Integer c_id, String c_name, Integer c_parentId, Integer c_type, List<Category> c_children, List<Product> c_products) {
         this.c_id = c_id;
         this.c_name = c_name;
         this.c_parentId = c_parentId;
         this.c_type = c_type;
+        this.c_children = c_children;
+        this.c_products = c_products;
     }
 
     public Integer getC_id() {

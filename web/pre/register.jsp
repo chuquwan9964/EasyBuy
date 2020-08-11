@@ -15,7 +15,7 @@
     <div class="regist">
         <div class="log_img"><img src="${ctx}/statics/images/l_img.png" width="611" height="425"/></div>
         <div class="reg_c">
-            <form id="register">
+            <form id="register" action="${ctx}/user?action=register">
                 <table border="0" style="width:420px; font-size:14px; margin-top:20px;" cellspacing="0" cellpadding="0">
                     <tr height="50" valign="top">
                         <td width="95">&nbsp;</td>
@@ -47,7 +47,6 @@
                             <input type="radio" name="sex" value="0">&nbsp;女
                         </td>
                     </tr>
-
                     <tr height="50">
                         <td align="right">&nbsp;身份证号 &nbsp;</td>
                         <td><input type="text" value="" name="identityCode" class="l_user"/></td>

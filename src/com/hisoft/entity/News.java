@@ -2,6 +2,9 @@ package com.hisoft.entity;
 
 import java.util.Date;
 
+/**
+ * News实体类
+ */
 public class News {
 
 

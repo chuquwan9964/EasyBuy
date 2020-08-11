@@ -14,6 +14,7 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao = new UserDaoImpl(threadLocal);
 
+
     /*   实现了BaseService开始,具体注释请查看BaseService    */
 
     @Override
@@ -43,4 +44,5 @@ public class UserServiceImpl implements UserService {
 
 
     /*   实现了BaseService结束,具体注释请查看BaseService    */
+
 }

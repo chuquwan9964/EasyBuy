@@ -1,5 +1,8 @@
 package com.hisoft.entity;
 
+/**
+ * 产品实体累
+ */
 public class Product {
 
     //产品id
