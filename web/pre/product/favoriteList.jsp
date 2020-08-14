@@ -4,22 +4,22 @@
 <script type="text/javascript">
     var contextPath = "${ctx}";
 </script>
-    <c:if test="${recentProducts!=null}">
+    <c:if test="${favoriteProducts!=null}">
         <div class="l_history">
         <div class="fav_t">我的收藏</div>
-        <c:forEach items="${recentProducts}" var="temp">
+        <c:forEach items="${favoriteProducts}" var="temp">
         <ul>
             <li>
                 <div class="img">
-                    <a href="${ctx}/Product?action=queryProductDetail&id=${temp.id}">
-                        <img src="${ctx}/files/${temp.fileName}" width="185" height="162"/>
+                    <a href="${ctx}/Product?action=queryProductDetail&id=${temp.p_id}">
+                        <img src="${ctx}/files/${temp.p_fileName}" width="185" height="162"/>
                     </a>
                 </div>
                 <div class="name">
-                    <a href="${ctx}/Product?action=queryProductDetail&id=${temp.id}">${temp.name}</a>
+                    <a href="${ctx}/Product?action=queryProductDetail&id=${temp.p_id}">${temp.p_name}</a>
                 </div>
                 <div class="price">
-                    <font>￥<span>${temp.price}</span></font> &nbsp;
+                    <font>￥<span>${temp.p_price}</span></font> &nbsp;
                 </div>
             </li>
         </ul>

@@ -1,9 +1,11 @@
 package com.hisoft.entity;
 
+import java.io.Serializable;
+
 /**
  * 产品实体累
  */
-public class Product {
+public class Product implements Serializable {
 
     //产品id
     private Integer p_id;
@@ -114,12 +116,15 @@ public class Product {
         this.p_fileName = p_fileName;
     }
 
-    public boolean isP_isDelete() {
+    public boolean getP_isDelete() {
         return p_isDelete;
     }
 
     public void setP_isDelete(boolean p_isDelete) {
         this.p_isDelete = p_isDelete;
+    }
+
+    public Product() {
     }
 
     public Product(Integer p_id, String p_name, String p_description, Float p_price, Integer p_stock, Integer p_categoryLevel1, Integer p_categoryLevel2, Integer p_categoryLevel3, String p_fileName, boolean p_isDelete) {

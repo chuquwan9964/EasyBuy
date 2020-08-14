@@ -1,8 +1,8 @@
-//分类添加
+﻿//分类添加
 function toAddProductCategory() {
     $.ajax({
-        url: contextPath + "/admin/productCategory",
-        method: "post",
+        url: contextPath + "/admin/category",
+        type: "post",
         data: {
             action: "toAddProductCategory"
         },
@@ -18,45 +18,62 @@ function addProductCategory() {
     var name = $("#name").val();
     var type = $("#type").val();
     $.ajax({
-        url: contextPath + "/admin/productCategory",
-        method: "post",
+        url: contextPath + "/admin/category",
+        type: "post",
         data: {
-            action: "addProductCategory",
+            action: "addCategory",
             name: name,
             type: type,
             productCategoryLevel1: (productCategoryLevel1 == null || productCategoryLevel1 == "") ? 0 : productCategoryLevel1,
             productCategoryLevel2: (productCategoryLevel2 == null || productCategoryLevel2 == "") ? 0 : productCategoryLevel2
         },
-        success: function (jsonStr) {
-            var result = eval("(" + jsonStr + ")");
-            //状态判断
-            if (result.status == 1) {
-                window.location.reload();
+        dataType: "json",
+        success: function (ret) {
+            // var result = eval("(" + jsonStr + ")");
+            // //状态判断
+            // if (result.status == 1) {
+            //     window.location.reload();
+            // }
+            showMessage(ret.message)
+            if (ret.status === "success") {
+                setTimeout(() => {
+                    window.location.reload();
+                },1000)
             }
         }
     });
 }
 //查询下级分类
 function queryProductCategoryList(obj, selectId) {
+    $("#" + selectId).empty();
     var parentId = $(obj).val();
     $.ajax({
-        url: contextPath + "/admin/productCategory",
-        method: "post",
+        url: contextPath + "/admin/category",
+        type: "post",
         data: {
-            action: "queryProductCategoryList",
+            action: "queryCategoryChild",
             parentId: parentId
         },
-        success: function (jsonStr) {
-            var result = eval("(" + jsonStr + ")");
-            //状态判断
-            if (result.status == 1) {
-                var options = "<option value=''>" + "请选择..." + "</option>";
-                for (var i = 0; i < result.data.length; i++) {
-                    var option = "<option value=" + result.data[i].id + ">" + result.data[i].name + "</option>";
-                    options = options + option;
-                }
-                $("#" + selectId).html(options);
-            }
+        dataType: "json",
+        success: function (ret) {
+            // var result = eval("(" + jsonStr + ")");
+            // //状态判断
+            // if (result.status == 1) {
+            //     var options = "<option value=''>" + "请选择..." + "</option>";
+            //     for (var i = 0; i < result.data.length; i++) {
+            //         var option = "<option value=" + result.data[i].id + ">" + result.data[i].name + "</option>";
+            //         options = options + option;
+            //     }
+            //     $("#" + selectId).html(options);
+            // }
+
+            $("#" + selectId).append($("<option value=''>" + "请选择..." + "</option>"))
+            ret.forEach(v => {
+                console.log(v.c_id);
+                console.log(v.c_name);
+                console.log("--------");
+                $("#" + selectId).append($(`<option value=${v.c_id}> ${v.c_name}</option>`))
+            })
         }
     });
 }
@@ -65,7 +82,7 @@ function toUpdateProductCategoryList(obj) {
     var id = $(obj).val();
     $.ajax({
         url: contextPath + "/admin/productCategory",
-        method: "post",
+        type: "post",
         data: {
             action: "toUpdateProductCategory",
             id: id
@@ -91,8 +108,8 @@ function modifyProductCategory() {
     var name = $("#name").val();
     var type = $("#type").val();
     $.ajax({
-        url: contextPath + "/admin/productCategory",
-        method: "post",
+        url: contextPath + "/admin/category",
+        type: "post",
         data: {
             action: "modifyProductCategory",
             id: id,
@@ -128,26 +145,30 @@ function deleteProductCategory(id,type) {
  var bool=window.confirm("确认删除此分类信息么?");
 	if(bool){
 		$.ajax({
-	        url: contextPath + "/admin/productCategory",
-	        method: "post",
+	        url: contextPath + "/admin/category",
+            type: "post",
 	        data: {
 	            id: id,
 	            type: type,
-	            action: "deleteProductCategory"
+	            action: "deleteCategoryById"
 	        },
-	        success: function (jsonStr) {
-	            var result = eval("(" + jsonStr + ")");
-	            if (result.status == 1) {
-	                window.location.reload();
-	            }else{
-	            	showMessage(result.message);
-	            }
+	        success: function (ret) {
+	            // var result = eval("(" + jsonStr + ")");
+	            // if (result.status == 1) {
+	            //     window.location.reload();
+	            // }else{
+	            // 	showMessage(result.message);
+	            // }
+                showMessage(ret.message)
+                if (ret.status === "success") {
+                    window.location.reload();
+                }
 	        }
 	    });
 	}
 }
 //商品发布的是很检查相关字段
-function checkProduct() {
+function checkProduct(action) {
     var productCategoryLevel1 = $("#productCategoryLevel1").val();
     var productCategoryLevel2 = $("#productCategoryLevel2").val();
     var productCategoryLevel3 = $("#productCategoryLevel3").val();
@@ -174,6 +195,26 @@ function checkProduct() {
         showMessage("清填写商品库存");
         return false;
     }
+
+    let formData = new FormData($("#productAdd")[0]);
+
+    $.ajax({
+        url: contextPath+"/admin/product?action="+action+"Product",
+        type: "post",
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: (ret) => {
+            showMessage(ret.message)
+            if (ret.status === "success") {
+                setTimeout(window.location.href = contextPath+"/admin/product?action=index&currentPage=1")
+            }
+        }
+    })
+
+
+    return false;
 }
 //检查用户
 function deleteById(id) {
@@ -181,16 +222,23 @@ function deleteById(id) {
 	if(bool){
 		$.ajax({
 	        url: contextPath + "/admin/product",
-	        method: "post",
+            type: "post",
 	        data: {
 	            id: id,
 	            action: "deleteById"
 	        },
-	        success: function (jsonStr) {
-	            var result = eval("(" + jsonStr + ")");
-	            if (result.status == 1) {
-	                window.location.reload();
-	            }
+            dataType: "json",
+	        success: function (ret) {
+	            // var result = eval("(" + jsonStr + ")");
+	            // if (result.status == 1) {
+	            //     window.location.reload();
+	            // }
+                showMessage(ret.message)
+                if (ret.status === "success") {
+                    setTimeout(() => {
+                        window.location.reload();
+                    },1000)
+                }
 	        }
 	    });
 	}
@@ -252,7 +300,7 @@ function checkUser() {
     return true;
 }
 
-function addUser() {
+function addUser(action) {
     if(!checkUser()){
     	return false;
     }
@@ -269,7 +317,7 @@ function addUser() {
         method: "post",
         data: {
            id: id,
-           action: "updateUser",
+           action: action,
            loginName: loginName,
            userName: userName,
            identityCode: identityCode,
@@ -278,13 +326,21 @@ function addUser() {
            type: type,
            password:password
         },
-        success: function (jsonStr) {
+        dataType: "json",
+        success: function (ret) {
+
+            showMessage(ret.message)
+            if (ret.status === "success") {
+                window.location.href=contextPath+"/admin/user?action=queryUserList";
+            }
+
+/*
             var result = eval("(" + jsonStr + ")");
             if (result.status == 1) {
                 window.location.href=contextPath+"/admin/user?action=queryUserList";
             }else{
             	showMessage(result.message);
-            }
+            }*/
         }
     });
 }
@@ -302,11 +358,12 @@ function deleteUserId(id) {
 	            id: id,
 	            action: "deleteUserById"
 	        },
-	        success: function (jsonStr) {
-	            var result = eval("(" + jsonStr + ")");
-	            if (result.status == 1) {
-	                window.location.reload();
-	            }
+            dataType: "json",
+	        success: function (ret) {
+                showMessage(ret.message)
+                if (ret.status === "success") {
+                    window.location.reload()
+                }
 	        }
 	    });
 	}

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -19,16 +19,16 @@
                     <tr valign="top">
                         <td width="115"><img src="${ctx}/statics/images/user.jpg" width="90" height="90" /></td>
                         <td>
-                            <div class="m_user">${sessionScope.loginUser.userName}</div><br />
+                            <div class="m_user">${sessionScope.loginUser.u_userName}</div><br />
                             <p>
                                 性别:
                                 <c:choose>
-                                    <c:when test="${sessionScope.loginUser.sex==1}">男</c:when>
+                                    <c:when test="${sessionScope.loginUser.u_sex==1}">男</c:when>
                                     <c:otherwise>女</c:otherwise>
                                 </c:choose>
                                 <br /><br />
-                                邮箱:${sessionScope.loginUser.email}<br /><br />
-                                电话:${sessionScope.loginUser.mobile}<br /><br />
+                                邮箱:${sessionScope.loginUser.u_email}<br /><br />
+                                电话:${sessionScope.loginUser.u_mobile}<br /><br />
                             </p>
                         </td>
                     </tr>

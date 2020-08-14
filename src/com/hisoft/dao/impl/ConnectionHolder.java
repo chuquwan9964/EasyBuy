@@ -9,6 +9,7 @@ public class ConnectionHolder  {
     protected ThreadLocal<Connection> threadLocal;
 
     public ConnectionHolder(ThreadLocal<Connection> threadLocal) {
+
         this.threadLocal = threadLocal;
     }
 

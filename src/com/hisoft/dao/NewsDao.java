@@ -3,6 +3,7 @@ package com.hisoft.dao;
 import com.hisoft.entity.Category;
 import com.hisoft.entity.News;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface NewsDao extends BaseDao<News,Integer> {
@@ -12,7 +13,8 @@ public interface NewsDao extends BaseDao<News,Integer> {
      * @return
      * @param n:    查找几条
      */
-    List<News> queryNewsByDateByOrder(Integer n);
+    List<News> queryNewsByDateByOrder(Integer n) throws SQLException;
 
 
+    List<News> queryNewsByPage(Integer currentPage, Integer pageSize);
 }

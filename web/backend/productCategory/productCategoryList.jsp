@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -29,26 +29,26 @@
           <td width="25%">父级分类</td>
           <td width="25%" >操作</td>
         </tr>
-        <c:forEach items="${productCategoryList}" var="temp">
+        <c:forEach items="${categoryList}" var="temp">
           <tr>
-            <td width="5%"><input type="radio" value="${temp.id}" name="select" onclick="toUpdateProductCategoryList(this);"/></td>
-            <td>${temp.name}</td>
+            <td width="5%"><input type="radio" value="${temp.c_id}" name="select" onclick="toUpdateProductCategoryList(this);"/></td>
+            <td>${temp.c_name}</td>
             <td>
             <c:choose>
-               <c:when test="${temp.type==1}">一级分类</c:when>
-               <c:when test="${temp.type==2}">二级分类</c:when>
-               <c:when test="${temp.type==3}">三级分类</c:when>
+               <c:when test="${temp.c_type==1}">一级分类</c:when>
+               <c:when test="${temp.c_type==2}">二级分类</c:when>
+               <c:when test="${temp.c_type==3}">三级分类</c:when>
             </c:choose>
             </td>
             <td>
-            <c:if test="${empty temp.parentName}">
+            <c:if test="${empty temp.c_parentId}">
             	无
             </c:if>
-            <c:if test="${not empty temp.parentName}">
-            	${temp.parentName}
+            <c:if test="${not empty temp.c_parentId}">
+            	${temp.c_parentId}
             </c:if>
             </td>
-            <td><a href="javascript:void(0);" onclick="deleteProductCategory(${temp.id},${temp.type});">删除</a></td>
+            <td><a href="javascript:void(0);" onclick="deleteProductCategory(${temp.c_id},${temp.c_type});">删除</a></td>
           </tr>
         </c:forEach>
         </tbody>

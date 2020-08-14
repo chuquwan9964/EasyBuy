@@ -1,6 +1,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -19,22 +19,22 @@
             <div class="nav_t">全部商品分类</div>
             <div class="leftNav">
                 <ul>
-                    <c:forEach items="${productCategoryVoList}" var="temp" >
+                    <c:forEach items="${categoryList}" var="temp">
                         <li>
                             <div class="fj">
                         <span class="n_img"><span></span>
-                            <img src="${ctx}/statics/images/${temp.productCategory.iconClass}"/></span>
-                                <span class="fl">${temp.productCategory.name}</span>
+                            <img src="${ctx}/statics/images/${temp.c_iconClass}"/></span>
+                                <span class="fl">${temp.c_name}</span>
                             </div>
                             <div class="zj">
                                 <div class="zj_l">
-                                    <c:forEach items="${temp.productCategoryVoList}" var="vo">
+                                    <c:forEach items="${temp.c_children}" var="vo">
                                         <div class="zj_l_c">
                                             <h2>
-                                                <a href="${ctx}/Product?action=queryProductList&category=${vo.productCategory.id}&level=2">${vo.productCategory.name}</a>
+                                                <a href="${ctx}/Product?action=queryProductList&categoryId=${vo.c_id}&level=2">${vo.c_name}</a>
                                             </h2>
-                                            <c:forEach items="${vo.productCategoryVoList}" var="vo2">
-                                                <a href="${ctx}/Product?action=queryProductList&category=${vo2.productCategory.id}&level=3">${vo2.productCategory.name}</a> |
+                                            <c:forEach items="${vo.c_children}" var="vo2">
+                                                <a href="${ctx}/Product?action=queryProductList&categoryId=${vo2.c_id}&level=3">${vo2.c_name}</a> |
                                             </c:forEach>
                                         </div>
                                     </c:forEach>
@@ -46,11 +46,15 @@
             </div>
         </div>
         <ul class="menu_r">
-
+            <!--页面控制如果商品类别没有加载上，就跳转到主页重新加载-->
+            <c:if test="${categoryList==null}">
+                <jsp:forward page="index.jsp"/>
+            </c:if>
             <%--category的一级分类的name的列表--%>
             <li><a href="${ctx}/Home?action=index">首页</a></li>
-            <c:forEach items="${productCategoryVoList}" var="temp">
-                <li><a href="${ctx}/Product?action=queryProductList&level=1&category=${temp.productCategory.id}">${temp.productCategory.name}</a></li>
+            <c:forEach items="${categoryList}" var="temp">
+                <li><a href="${ctx}/Product?action=queryProductList&level=1&categoryId=${temp.c_id}">${temp.c_name}</a>
+                </li>
             </c:forEach>
         </ul>
         <div class="m_ad">中秋送好礼！</div>
@@ -86,12 +90,12 @@
         <!--End Banner End-->
         <div class="inews">
             <div class="news_t">
-                <span class="fr"><a href="${ctx}/admin/news?action=queryNewsList">更多 ></a></span>新闻资讯
+                <span class="fr"><a href="${ctx}/news?action=queryNewsList&currentPage=1">更多 ></a></span>新闻资讯
             </div>
             <ul>
-                <c:forEach items="${news}" var="temp">
+                <c:forEach items="${newsList}" var="temp">
                     <li><span>[ 公告 ]</span>
-                        <a href="${ctx}/admin/news?action=newsDeatil&id=${temp.n_id}">${temp.n_title}</a>
+                        <a href="${ctx}/news?action=newsDetail&id=${temp.n_Id}">${temp.n_Title}</a>
                     </li>
                 </c:forEach>
             </ul>
@@ -129,19 +133,22 @@
         <img src="${ctx}/statics/images/mban_1.jpg" width="1200" height="110"/>
     </div>
     <!--Begin 进口 生鲜 Begin-->
-    <c:forEach items="${productCategoryVoList}" var="temp" end="${fn:length(productCategoryVoList)}" varStatus="status">
+    <c:forEach items="${categoryList}" var="temp" end="${fn:length(categoryList)}" varStatus="status">
         <div class="i_t mar_10">
             <span class="floor_num">${status.index+1}F</span>
-            <span class="fl">${temp.productCategory.name}</span>
+            <span class="fl">${temp.c_name}</span>
         </div>
         <div class="content">
             <div class="fresh_left">
                 <div class="fre_ban">
                     <div id="imgPlay1">
                         <ul class="imgs" id="actor1">
-                            <li><a href="#"><img src="${ctx}/statics/images/fre_r.jpg" width="211" height="286"/></a></li>
-                            <li><a href="#"><img src="${ctx}/statics/images/fre_r.jpg" width="211" height="286"/></a></li>
-                            <li><a href="#"><img src="${ctx}/statics/images/fre_r.jpg" width="211" height="286"/></a></li>
+                            <li><a href="#"><img src="${ctx}/statics/images/fre_r.jpg" width="211" height="286"/></a>
+                            </li>
+                            <li><a href="#"><img src="${ctx}/statics/images/fre_r.jpg" width="211" height="286"/></a>
+                            </li>
+                            <li><a href="#"><img src="${ctx}/statics/images/fre_r.jpg" width="211" height="286"/></a>
+                            </li>
                         </ul>
                         <div class="prevf">上一张</div>
                         <div class="nextf">下一张</div>
@@ -149,23 +156,23 @@
                 </div>
                 <div class="fresh_txt">
                     <div class="fresh_txt_c">
-                        <c:forEach items="${temp.productCategoryVoList}" var="vo">
-                            <a href="${ctx}/Product?action=queryProductList&category=${vo.productCategory.id}&level=2">${vo.productCategory.name}</a>
+                        <c:forEach items="${temp.c_children}" var="vo">
+                            <a href="${ctx}/Product?action=queryProductList&categoryId=${vo.c_id}&level=2">${vo.c_name}</a>
                         </c:forEach>
                     </div>
                 </div>
             </div>
             <div class="fresh_mid">
                 <ul>
-                    <c:forEach items="${temp.productList}" var="productVo">
+                    <c:forEach items="${temp.c_products}" var="productVo">
                         <li>
-                            <div class="name"><a href="#">${productVo.name}</a></div>
+                            <div class="name"><a href="#">${productVo.p_name}</a></div>
                             <div class="price">
-                                <font>￥<span>${productVo.price}</span></font> &nbsp;
+                                <font>￥<span>${productVo.p_price}</span></font> &nbsp;
                             </div>
                             <div class="img">
-                                <a href="${ctx}/Product?action=queryProductDetail&id=${productVo.id}">
-                                    <img src="${ctx}/files/${productVo.fileName}" width="185"  height="155"/>
+                                <a href="${ctx}/Product?action=queryProductDetail&id=${productVo.p_id}">
+                                    <img src="${ctx}/files/${productVo.p_fileName}" width="185" height="155"/>
                                 </a>
                             </div>
                         </li>
@@ -183,4 +190,13 @@
     <%@ include file="/common/pre/footer.jsp" %>
 </div>
 </body>
+<script !src="">
+
+    $(document).ready(function () {
+    //页面加载时，在application作用域上绑定商品类别
+
+
+
+    })
+</script>
 </html>

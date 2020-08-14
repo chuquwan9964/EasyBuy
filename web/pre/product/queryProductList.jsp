@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -38,17 +38,17 @@
                     <c:forEach items="${productList}" var="temp">
                         <li>
                             <div class="img">
-                                <a href="${ctx}/Product?action=queryProductDetail&id=${temp.id}" target="_blank">
-                                    <img src="${ctx}/files/${temp.fileName}" width="210" height="185"/>
+                                <a href="${ctx}/Product?action=queryProductDetail&id=${temp.p_id}" target="_blank">
+                                    <img src="${ctx}/files/${temp.p_fileName}" width="210" height="185"/>
                                 </a>
                             </div>
                             <div class="price">
-                                <font>￥<span>${temp.price}</span></font>
+                                <font>￥<span>${temp.p_price}</span></font>
                             </div>
-                            <div class="name"><a href="${ctx}/Product?action=queryProductDetail&id=${temp.id}">${temp.name}</a></div>
+                            <div class="name"><a href="${ctx}/Product?action=queryProductDetail&id=${temp.p_id}">${temp.p_name}</a></div>
                             <div class="carbg">
-                                <a href="javascript:void(0);" class="ss" onclick="addFavorite('${temp.id}')">收藏</a>
-                                <a href="javascript:void(0);" class="j_car" onclick="addCartByParam('${temp.id}',1);">加入购物车</a>
+                                <a href="javascript:void(0);" class="ss" onclick="addFavorite('${temp.p_id}')">收藏</a>
+                                <a href="javascript:void(0);" class="j_car" onclick="addCartByParam('${temp.p_id}',1);">加入购物车</a>
                             </div>
                         </li>
                     </c:forEach>

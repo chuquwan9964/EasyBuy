@@ -1,6 +1,8 @@
 package com.hisoft.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 订单
@@ -25,6 +27,39 @@ public class Order {
     private Integer o_type;
     //订单号
     private String o_serialNumber;
+    //订单下的产品列表
+    private List<Product> o_productList = new ArrayList<>();
+    //修改,致命错误
+    private List<OrderDetail> details = new ArrayList<>();
+
+    public List<OrderDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<OrderDetail> details) {
+        this.details = details;
+    }
+
+    public List<Product> getO_productList() {
+        return o_productList;
+    }
+
+    public void setO_productList(List<Product> o_productList) {
+        this.o_productList = o_productList;
+    }
+
+    public Order(Integer o_id, Integer o_userId, String o_loginName, String o_userAddress, Date o_createTime, Float o_cost, Integer o_status, Integer o_type, String o_serialNumber, List<Product> o_productList) {
+        this.o_id = o_id;
+        this.o_userId = o_userId;
+        this.o_loginName = o_loginName;
+        this.o_userAddress = o_userAddress;
+        this.o_createTime = o_createTime;
+        this.o_cost = o_cost;
+        this.o_status = o_status;
+        this.o_type = o_type;
+        this.o_serialNumber = o_serialNumber;
+        this.o_productList = o_productList;
+    }
 
     @Override
     public String toString() {
@@ -111,6 +146,9 @@ public class Order {
 
     public void setO_serialNumber(String o_serialNumber) {
         this.o_serialNumber = o_serialNumber;
+    }
+
+    public Order() {
     }
 
     public Order(Integer o_id, Integer o_userId, String o_loginName, String o_userAddress, Date o_createTime, Float o_cost, Integer o_status, Integer o_type, String o_serialNumber) {

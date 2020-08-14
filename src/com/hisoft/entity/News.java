@@ -27,6 +27,10 @@ public class News {
         this.n_Date = n_Date;
     }
 
+    public News() {
+
+    }
+
     @Override
     public String toString() {
         return "News{" +

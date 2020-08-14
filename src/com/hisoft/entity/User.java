@@ -65,9 +65,10 @@ public class User {
             this.u_password = EncryptionUtil.str2Md5(u_password,"utf-8");
         } catch (NoSuchAlgorithmException e) {
             logger.error("给用户密码加密失败");
+            this.u_password = u_password;
             e.printStackTrace();
+            this.u_password = u_password;
         }
-        this.u_password = u_password;
     }
 
     public Character getU_sex() {
@@ -110,6 +111,12 @@ public class User {
         this.u_type = u_type;
     }
 
+    public User() {
+    }
+
+    public User(String u_password) {
+        this.u_password = u_password;
+    }
 
     public User(Integer u_id, String u_loginName, String u_userName, String u_password, Character u_sex, String u_identityCode, String u_email, String u_mobile, int u_type) {
         this.u_id = u_id;

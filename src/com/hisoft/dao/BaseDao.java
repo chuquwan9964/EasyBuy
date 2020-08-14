@@ -26,7 +26,7 @@ public interface BaseDao<T,K> {
      * @param k 主键
      * @return  返回一条数据
      */
-    default T queryOneByPrimaryKey(K k) {
+    default T queryOneByPrimaryKey(K k) throws SQLException {
         return null;
     }
 
@@ -34,7 +34,7 @@ public interface BaseDao<T,K> {
      * 查询总数量(select count(*)...)
      * @return
      */
-    default Integer queryCount() {
+    default Integer queryCount() throws SQLException {
         return null;
     }
 
@@ -56,6 +56,15 @@ public interface BaseDao<T,K> {
      */
    default Integer updateOne(T t,K k) {
        return null;
+   }
+
+    /**
+     * 删除一条数据
+     * @param k
+     * @return
+     */
+   default Integer remove(K k) throws SQLException {
+        return null;
    }
 
 }

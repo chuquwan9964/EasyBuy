@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -21,10 +21,10 @@
         <tbody>
         <c:forEach items="${orderList}" var="temp">
           <tr class="td_bg">
-            <td>用户名:${temp.loginName}</td>
-            <td><a href="${ctx}/admin/order?action=queryOrderDeatil&orderId=${temp.id}">订单号:${temp.serialNumber}</a></td>
-            <td>地址:${temp.userAddress}</td>
-            <td>￥${temp.cost}</td>
+            <td>用户名:${temp.o_loginName}</td>
+            <td><a href="${ctx}/order?action=queryOrderDetail&orderId=${temp.o_id}">订单号:${temp.o_serialNumber}</a></td>
+            <td>地址:${temp.o_userAddress}</td>
+            <td>￥${temp.o_cost}</td>
           </tr>
           <tr>
           </tr>
@@ -35,15 +35,16 @@
                 <tr>
                   <td width="20%">商品名称</td>
                   <td width="20%">商品图片</td>
+
                   <td width="25%">数量</td>
                   <td width="25%">价格</td>
                 </tr>
-                <c:forEach items="${temp.orderDetailList}" var="temp">
+                <c:forEach items="${temp.details}" var="temp">
                   <tr>
-                    <td>${temp.product.name}</td>
+                    <td>${temp.product.p_name}</td>
                     <td>
-                      <a href="${ctx}/Product?action=queryProductDetail&id=${temp.product.id}" target="_blank">
-                        <img src="${ctx}/files/${temp.product.fileName}" width="50" height="50">
+                      <a href="${ctx}/Product?action=queryProductDetail&id=${temp.product.p_id}" target="_blank">
+                        <img src="${ctx}/files/${temp.product.p_fileName}" width="50" height="50">
                       </a>
                     </td>
                     <td>${temp.quantity}</td>

@@ -30,6 +30,8 @@ public class CharacterFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+//        servletResponse.setContentType("text/html;charset=utf-8");
+        servletResponse.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");
         filterChain.doFilter(servletRequest, servletResponse);
     }

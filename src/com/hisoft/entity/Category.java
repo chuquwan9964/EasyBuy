@@ -15,19 +15,22 @@ public class Category {
     private Integer c_parentId;
     //分类的类型,1:一级分类,2:二级分类,3:三级分类
     private Integer c_type;
+
     //下一级category的集合,最后一级为空
     private List<Category> c_children;
+
     //这个分类下的产品集合
     private List<Product> c_products;
 
+    //icon-class
+    private String c_iconClass;
 
+    public String getC_iconClass() {
+        return c_iconClass;
+    }
 
-
-    public Category(Integer c_id, String c_name, Integer c_parentId, Integer c_type) {
-        this.c_id = c_id;
-        this.c_name = c_name;
-        this.c_parentId = c_parentId;
-        this.c_type = c_type;
+    public void setC_iconClass(String c_iconClass) {
+        this.c_iconClass = c_iconClass;
     }
 
     @Override
@@ -39,7 +42,21 @@ public class Category {
                 ", c_type=" + c_type +
                 ", c_children=" + c_children +
                 ", c_products=" + c_products +
+                ", c_iconClass='" + c_iconClass + '\'' +
                 '}';
+    }
+
+    public Category() {
+    }
+
+    public Category(Integer c_id, String c_name, Integer c_parentId, Integer c_type, List<Category> c_children, List<Product> c_products, String c_iconClass) {
+        this.c_id = c_id;
+        this.c_name = c_name;
+        this.c_parentId = c_parentId;
+        this.c_type = c_type;
+        this.c_children = c_children;
+        this.c_products = c_products;
+        this.c_iconClass = c_iconClass;
     }
 
     public List<Category> getC_children() {

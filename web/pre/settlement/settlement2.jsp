@@ -18,13 +18,13 @@
                 <td class="car_th" width="150">购买数量</td>
                 <td class="car_th" width="130">小计</td>
             </tr>
-            <c:forEach items="${sessionScope.cart.items}" var="temp">
+            <c:forEach items="${sessionScope.shoppingCar.items}" var="temp">
                 <tr>
                     <td>
                         <div class="c_s_img">
-                            <img src="${ctx}/files/${temp.product.fileName}" width="73" height="73"/>
+                            <img src="${ctx}/files/${temp.product.p_fileName}" width="73" height="73"/>
                         </div>
-                            ${temp.product.name}
+                            ${temp.product.p_name}
                     </td>
                     <td align="center">${temp.quantity}</td>
                     <td align="center" style="color:#ff4e00;">￥${temp.cost}</td>
@@ -38,15 +38,15 @@
         <table border="0" class="peo_tab" style="width:1110px;" cellspacing="0" cellpadding="0">
             <tr>
                 <td class="p_td" width="160">用户名称</td>
-                <td width="395">${sessionScope.loginUser.userName}</td>
+                <td width="395">${sessionScope.loginUser.u_userName}</td>
                 <td class="p_td">登录名称</td>
-                <td>${sessionScope.loginUser.loginName}</td>
+                <td>${sessionScope.loginUser.u_loginName}</td>
             </tr>
             <tr>
                 <td class="p_td">手机</td>
-                <td>${sessionScope.loginUser.mobile}</td>
+                <td>${sessionScope.loginUser.u_mobile}</td>
                 <td class="p_td" width="160">电子邮件</td>
-                <td width="395">${sessionScope.loginUser.email}</td>
+                <td width="395">${sessionScope.loginUser.u_email}</td>
             </tr>
         </table>
         <div class="two_t">
@@ -85,7 +85,7 @@
             <tr height="70">
                 <td align="right">
                     <b style="font-size:14px;">应付款金额：<span
-                            style="font-size:22px; color:#ff4e00;">￥${sessionScope.cart.sum}</span></b>
+                            style="font-size:22px; color:#ff4e00;">￥${sessionScope.shoppingCar.sum}</span></b>
                 </td>
             </tr>
             <tr height="70">

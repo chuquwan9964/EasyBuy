@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -23,8 +23,8 @@
                 </tr>
                 <c:forEach items="${newsList}" var="temp">
                     <tr>
-                        <td><a href="${ctx}/admin/news?action=newsDeatil&id=${temp.id}">${temp.title}</a></td>
-                        <td><fmt:formatDate type="date" dateStyle="long" value="${temp.createTime}" ></fmt:formatDate></td>
+                        <td><a href="${ctx}/news?action=newsDetail&id=${temp.n_Id}">${temp.n_Title}</a></td>
+                        <td><fmt:formatDate type="date" dateStyle="long" value="${temp.n_Date}" ></fmt:formatDate></td>
                     </tr>
                 </c:forEach>
                 </tbody>

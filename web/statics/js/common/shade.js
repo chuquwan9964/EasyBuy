@@ -15,6 +15,7 @@ function CloseDiv(show_div,bg_div)
 	document.getElementById(bg_div).style.display='none';
 };
 function ShowDiv_1(show_div,bg_div){
+
 	document.getElementById(show_div).style.display='block';
 	document.getElementById(bg_div).style.display='block' ;
 	var bgdiv = document.getElementById(bg_div);
@@ -30,4 +31,12 @@ function CloseDiv_1(show_div,bg_div){
 function showMessage(content){
 	ShowDiv_1('MyDiv1','fade1');
 	$("#showMessage").html(content).fadeIn(1000).fadeOut(3000);
+}
+function showMessageShow(content){
+	ShowDiv_1('MyDiv1','fade1');
+	$("#showMessage").html(content).show();
+}
+function hidenMessage(content){
+	ShowDiv_1('MyDiv1','fade1');
+	$("#showMessage").hidden();
 }

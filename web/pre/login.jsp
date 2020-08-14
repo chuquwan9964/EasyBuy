@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%
     if(request.getSession().getAttribute("loginUser")!=null){
@@ -21,13 +21,14 @@
 	<div class="login">
     	<div class="log_img"><img src="${ctx}/statics/images/l_img.png" width="611" height="425" /></div>
 		<div class="log_c">
+
         	<form action="${ctx}/user?action=login">
             <table border="0" style="width:370px; font-size:14px; margin-top:30px;" cellspacing="0" cellpadding="0">
               <tr height="50" valign="top">
               	<td width="55">&nbsp;</td>
                 <td>
                 	<span class="fl" style="font-size:24px;">登录</span>
-                    <span class="fr">还没有商城账号，<a href="${ctx}/Register?action=toRegister" style="color:#ff4e00;">立即注册</a></span>
+                    <span class="fr">还没有商城账号，<a href="${ctx}/pre/register.jsp" style="color:#ff4e00;">立即注册</a></span>
                 </td>
               </tr>
               <tr height="70">

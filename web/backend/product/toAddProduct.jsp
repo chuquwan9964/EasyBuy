@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -16,7 +16,7 @@
         <div class="m_right" id="content">
              <div class="mem_tit">
                 <c:choose>
-                    <c:when test="${empty product.id || product.id==0}">
+                    <c:when test="${empty product.p_id || product.p_id==0}">
                         添加商品
                     </c:when>
                     <c:otherwise>
@@ -26,7 +26,13 @@
             </div>
             
             <br>
-            <form action="${ctx}/admin/product?action=addProduct" method="post" enctype="multipart/form-data" id="productAdd" onsubmit="return checkProduct();">
+<%--            <form action="${ctx}/admin/product?action=addProduct" method="post" enctype="multipart/form-data" id="productAdd" onsubmit="return checkProduct();">--%>
+            <c:if test="${product == null}">
+                <form action="javascript:void(0)" method="post" enctype="multipart/form-data" id="productAdd">
+            </c:if>
+            <c:if test="${product != null}">
+                <form action="javascript:void(0)" method="post" enctype="multipart/form-data" id="productAdd">
+            </c:if>
             <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
                 <tr>
                     <td width="135" align="right">一级分类</td>
@@ -35,8 +41,8 @@
                                 onchange="queryProductCategoryList(this,'productCategoryLevel2');">
                             <option value="" selected="selected">请选择...</option>
                             <c:forEach items="${productCategoryList1}" var="temp">
-                                <option value="${temp.id}"
-                                        <c:if test="${product.categoryLevel1Id==temp.id}">selected="selected"</c:if> >${temp.name}</option>
+                                <option value="${temp.c_id}"
+                                        <c:if test="${product.p_categoryLevel1==temp.c_id}">selected="selected"</c:if> >${temp.c_name}</option>
                             </c:forEach>
                         </select>
                     </td>
@@ -49,8 +55,8 @@
                                 onchange="queryProductCategoryList(this,'productCategoryLevel3');">
                             <option value="0" selected="selected">请选择...</option>
                             <c:forEach items="${productCategoryList2}" var="temp">
-                                <option value="${temp.id}"
-                                        <c:if test="${product.categoryLevel2Id==temp.id}">selected="selected"</c:if> >${temp.name}</option>
+                                <option value="${temp.c_id}"
+                                        <c:if test="${product.p_categoryLevel2==temp.c_id}">selected="selected"</c:if> >${temp.c_name}</option>
                             </c:forEach>
                         </select>
                     </td>
@@ -62,8 +68,8 @@
                                 id="productCategoryLevel3">
                             <option value="0" selected="selected">请选择...</option>
                             <c:forEach items="${productCategoryList3}" var="temp">
-                                <option value="${temp.id}"
-                                        <c:if test="${product.categoryLevel3Id==temp.id}">selected="selected"</c:if> >${temp.name}</option>
+                                <option value="${temp.c_id}"
+                                        <c:if test="${product.p_categoryLevel3==temp.c_id}">selected="selected"</c:if> >${temp.c_name}</option>
                             </c:forEach>
                         </select>
                     </td>
@@ -71,15 +77,15 @@
                 <tr>
                     <td width="135" align="right">商品名称</td>
                     <td>
-                        <input type="text" value="${product.name}" class="add_ipt" name="name" id="name"/>（必填）
-                        <input type="hidden" name="id" value="${product.id}" id="id">
+                        <input type="text" value="${product.p_name}" class="add_ipt" name="name" id="name"/>（必填）
+                        <input type="hidden" name="id" value="${product.p_id}" id="id">
                     </td>
                 </tr>
                 <tr>
                     <td width="135" align="right">商品图片</td>
                     <td>
-                        <c:if test="${product.fileName!=null && product.fileName!=''}">
-                            <img src="${ctx}/files/${product.fileName}" width="50" height="50"/>
+                        <c:if test="${product.p_fileName!=null && product.p_fileName!=''}">
+                            <img src="${ctx}/files/${product.p_fileName}" width="50" height="50"/>
                         </c:if>
                         <input type="file" class="text" name="photo" /><span></span>
                     </td>
@@ -87,30 +93,30 @@
                 <tr>
                     <td width="135" align="right">单价</td>
                     <td>
-                        <input type="text" value="${product.price}" class="add_ipt" name="price" id="price"/>
+                        <input type="text" value="${product.p_price}" class="add_ipt" name="price" id="price"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="135" align="right">库存</td>
                     <td>
-                        <input type="text" value="${product.stock}" class="add_ipt" name="stock" id="stock"/>
+                        <input type="text" value="${product.p_stock}" class="add_ipt" name="stock" id="stock"/>
                     </td>
                 </tr>
                 <tr>
                     <td width="135" align="right">描述</td>
                     <td>
-                        <textarea name="description">${product.description}</textarea>
+                        <textarea name="description">${product.p_description}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
                         <c:choose>
-                            <c:when test="${empty product.id}">
-                                <input type="submit" value="商品上架" class="s_btn">
+                            <c:when test="${empty product.p_id}">
+                                <input type="submit" value="商品上架" class="s_btn" onclick="checkProduct('add')">
                             </c:when>
                             <c:otherwise>
-                                <input type="submit" value="确定修改" class="s_btn">
+                                <input type="submit" value="确定修改" class="s_btn" onclick="checkProduct('update')">
                             </c:otherwise>
                         </c:choose>
                     </td>

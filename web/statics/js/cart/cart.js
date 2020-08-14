@@ -25,15 +25,25 @@ function addCartByParam(entityId,quantity){
             entityId: entityId,
             quantity: quantity
         },
-        success: function (jsonStr) {
-        	 var result = eval("(" + jsonStr + ")");
-             //状态判断
-             if (result.status == 1) {
-            	 showMessage("操作成功");
-            	 refreshCart();
-             }else{
-            	 showMessage(result.message);
-             }
+        dataType: "json",
+        success: function (ret) {
+        	 // var result = eval("(" + jsonStr + ")");
+             // //状态判断
+             // if (result.status == 1) {
+            	//  showMessage("操作成功");
+            	//  refreshCart();
+             // }else{
+            	//  showMessage(result.message);
+             // }
+
+            showMessage(ret.message)
+            if (ret.status === "success") {
+                refreshCart();
+            }else {
+                setTimeout(() => {
+                    window.location.href = contextPath+"/pre/login.jsp"
+                },4000)
+            }
         }
     } )
 }
@@ -41,14 +51,14 @@ function addCartByParam(entityId,quantity){
  * 刷新购物车 searchBar DIV
  */
 function refreshCart(){
-    $.ajax({
-        url: contextPath + "/Cart",
-        method: "post",
-        data: {
-            action: "refreshCart"
-        },
-        success: function (jsonStr) {
-            $("#searchBar").html(jsonStr);
+                $.ajax({
+                    url: contextPath + "/Cart",
+                    method: "post",
+                    data: {
+                        action: "refreshCart"
+                    },
+                    success: function (jsonStr) {
+                        $("#searchBar").html(jsonStr);
         }
     })
 }
@@ -103,6 +113,7 @@ function settlement3(){
             return;
         }
     }
+
     $.ajax({
         url: contextPath + "/Cart",
         method: "post",
@@ -141,9 +152,11 @@ function addQuantity(obj,entityId,stock){
  * @param entityId
  */
 function subQuantity(obj,entityId){
+
     var quantity=getPCount(jq(obj))-1;
     if(quantity==0) quantity=1;
     modifyCart(entityId,quantity,jq(obj));
+
 }
 /**
  * 修改购物车列表
@@ -159,17 +172,25 @@ function modifyCart(entityId,quantity,obj){
             entityId:entityId,
             quantity:quantity
         },
-        success: function (jsonStr) {
-        	var result = eval("(" + jsonStr + ")");
-            //状态判断
-            if (result.status == 1) {
-                obj.parent().find(".car_ipt").val(quantity);
-                settlement1();
-            }else{
-           	 	showMessage(result.message);
+        dataType: "json",
+        success: function (ret) {
+            // alert("123")
+        	// var result = eval("(" + jsonStr + ")");
+            // //状态判断
+            // if (result.status == 1) {
+            //     obj.parent().find(".car_ipt").val(quantity);
+            //     settlement1();
+            // }else{
+           	//  	showMessage(result.message);
+            // }
+            if (ret.status!="success") {
+                showMessage(ret.message)
+            }else {
+                settlement1()
             }
         }
     });
+
 }
 /**
  * 清空购物车
@@ -196,18 +217,22 @@ function removeCart(entityId){
         url: contextPath + "/Cart",
         method: "post",
         data: {
-            action: "modCart",
+            action: "removeOneItemInCart",
             entityId:entityId,
-            quantity:0
         },
-        success: function (jsonStr) {
-        	var result = eval("(" + jsonStr + ")");
+        dataType:"JSON",
+        success: function (data) {
+        	// var result = eval("(" + jsonStr + ")");
             //状态判断
-            if (result.status == 1) {
+            if (data.status == "success") {
+                showMessage(data.message);
             	settlement1();
             }else{
-           	 	showMessage(result.message);
+           	 	showMessage(data.message);
             }
+        },
+        error: function () {
+            alert("error");
         }
     });
 }
@@ -238,8 +263,9 @@ function addFavorite(productId){
             action: "addFavorite",
             id:productId
         },
-        success: function (jsonStr) {
-            favoriteList();
+        dataType: "json",
+        success: function (ret) {
+            showMessage(ret.message)
         }
     });
 }

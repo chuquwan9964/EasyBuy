@@ -24,4 +24,15 @@ public interface CategoryService extends BaseService<Category,Integer> {
     default List<Category> queryLevel_1_Categories() {
         return null;
     }
+
+
+    /**
+     * 分页查询
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    default List<Category> queryCategoryByPage(Integer currentPage,Integer pageSize) {
+        return null;
+    }
 }

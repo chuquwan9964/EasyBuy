@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -16,7 +16,7 @@
         <div class="m_right" id="content">
             <div class="mem_tit">用户列表</div>
             <p align="right">
-                <a href="${ctx}/admin/user?action=toAddUser"  class="add_b">添加用户</a>
+                <a href="${ctx}/backend/user/toUpdateUser.jsp"  class="add_b">添加用户</a>
                 <br>
             </p>
             <br>
@@ -32,11 +32,11 @@
                 </tr>
                 <c:forEach items="${userList}" var="temp">
                     <tr>
-                        <td>${temp.loginName}</td>
-                        <td>${temp.userName}</td>
+                        <td>${temp.u_loginName}</td>
+                        <td>${temp.u_userName}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${temp.sex==1}">
+                                <c:when test="${temp.u_sex==1}">
                                     男
                                 </c:when>
                                 <c:otherwise>
@@ -46,7 +46,7 @@
                         </td>
                         <td>
                             <c:choose>
-                                <c:when test="${temp.type==1}">
+                                <c:when test="${temp.u_type==1}">
                                     管理员
                                 </c:when>
                                 <c:otherwise>
@@ -55,11 +55,11 @@
                             </c:choose>
                         </td>
                         <td>
-                            <a href="${ctx}/admin/user?action=toUpdateUser&id=${temp.id}">修改</a>
+                            <a href="${ctx}/admin/user?action=toUpdateUser&id=${temp.u_id}">修改</a>
                         </td>
                         <td>
-                        	<c:if test="${sessionScope.loginUser.id!=temp.id}">
-                           	 <a href="javascript:void(0);" onclick="deleteUserId('${temp.id}');" target="_blank">删除</a>
+                        	<c:if test="${sessionScope.loginUser.u_id!=temp.u_id}">
+                           	 <a href="javascript:void(0)" onclick="deleteUserId('${temp.u_id}');">删除</a>
                         	</c:if>
                         </td>
                     </tr>

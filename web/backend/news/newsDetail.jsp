@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -15,9 +15,9 @@
         <%@ include file="/common/backend/leftBar.jsp"%>
 		<div class="m_right">
             <p></p>
-            <div class="mem_tit">${news.title}</div>
+            <div class="mem_tit">${news.n_Title}</div>
             <p style="padding:0 40px; margin:0 auto 20px auto;">
-                ${news.content}
+                ${news.n_Content}
             </p>
         </div>
     </div>

@@ -17,7 +17,7 @@ public interface BaseService<T,K> {
          * 查询所有
          * @return
          */
-        List<T> queryAll() throws SQLException;
+        List<T> queryAll() ;
 
         /**
          * 根据主键查询一条数据
@@ -47,6 +47,14 @@ public interface BaseService<T,K> {
          * @return
          */
         Integer updateOne(T t,K k);
+
+
+        /**
+         * 根据主键删除数据
+         * @param k
+         * @return
+         */
+        Integer remove(K k);
 
 
 }

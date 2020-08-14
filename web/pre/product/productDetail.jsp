@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -30,22 +30,22 @@
     <div class="content">
         <div id="tsShopContainer">
             <div id="tsImgS">
-                <a href="${ctx}/files/${product.fileName}" title="Images" class="MagicZoom" id="MagicZoom">
-                    <img src="${ctx}/files/${product.fileName}" width="390" height="390"/>
+                <a href="${ctx}/files/${product.p_fileName}" title="Images" class="MagicZoom" id="MagicZoom">
+                    <img src="${ctx}/files/${product.p_fileName}" width="390" height="390"/>
                 </a>
             </div>
         </div>
         <div class="pro_des">
             <div class="des_name">
-                <input type="hidden" value="${product.id}"  name="entityId" class="n_ipt"/>
-                <p>${product.name}</p>
+                <input type="hidden" value="${product.p_id}"  name="entityId" class="n_ipt"/>
+                <p>${product.p_name}</p>
                 “开业巨惠，北京专柜直供”，不光低价，“真”才靠谱！
             </div>
             <div class="des_price">
-                本店价格：<b>￥${product.price}</b><br/>
+                本店价格：<b>￥${product.p_price}</b><br/>
             </div>
            <div class="des_price">
-                库存：<b>${product.stock}</b><br/>
+                库存：<b>${product.p_stock}</b><br/>
             </div>
             <div class="des_choice">
                 <span class="fl">型号选择：</span>
@@ -82,7 +82,7 @@
                     <input type="text"   value="1"  name="quantity" class="n_ipt"/>
                     <input type="button" value="" onclick="addUpdate(jq(this));" class="n_btn_1"/>
                     <input type="button" value="" onclick="jianUpdate(jq(this));" class="n_btn_2"/>
-                    <input type="hidden" name="productStock" value="${product.stock}">
+                    <input type="hidden" name="productStock" value="${product.p_stock}">
                 </div>
                 <span class="fl">
                      <img src="${ctx}/statics/images/j_car.png" onclick="addCart();"/>
@@ -105,8 +105,8 @@
                     <table border="0" align="center" style="width:100%; font-family:'宋体'; margin:10px auto;"
                            cellspacing="0" cellpadding="0">
                         <tr>
-                            <td>商品名称：${product.name}</td>
-                            <td>商品价格：${product.price}</td>
+                            <td>商品名称：${product.p_name}</td>
+                            <td>商品价格：${product.p_price}</td>
                             <td>品牌： 迪奥（Dior）</td>
                             <td>上架时间：2018-09-06 09:19:09 </td>
                         </tr>
@@ -131,12 +131,12 @@
                     <table border="0" align="center" style="width:745px; font-size:14px; font-family:'宋体';" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
-                                ${product.description}
+                                ${product.p_description}
                             </td>
                         </tr>
                     </table>
                     <p align="center">
-                        <img src="${ctx}/files/${product.fileName}" width="185" height="155">
+                        <img src="${ctx}/files/${product.p_fileName}" width="185" height="155">
                     </p>
                 </div>
             </div>
